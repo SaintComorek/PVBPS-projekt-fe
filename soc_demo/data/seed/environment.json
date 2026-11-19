@@ -1,0 +1,53 @@
+{
+  "_comment": "SYNTETICKÉ PROSTREDIE pre lokálne demo. Fiktívna organizácia ACME, rezervované domény (.example) a dokumentačné IP rozsahy (RFC 5737). Firewall, poštový filter a odosielanie e-mailov sú iba simulované v tomto súbore, nič neodchádza do siete.",
+  "internal_email_domains": ["acme.example"],
+  "protected_networks": ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "198.51.100.0/28"],
+  "assets": [
+    {"ip": "198.51.100.10", "name": "mx-01", "role": "verejná poštová brána ACME (príjem a odosielanie e-mailov)", "critical": true},
+    {"ip": "198.51.100.11", "name": "vpn-01", "role": "VPN brána pre zamestnancov", "critical": true},
+    {"ip": "10.20.0.53", "name": "dns-01", "role": "interný DNS server", "critical": true}
+  ],
+  "firewall_blocklist": [],
+  "sender_allowlist": ["acme.example", "partner-bank.example"],
+  "playbooks": [
+    {
+      "id": "KB-PHISH-01",
+      "title": "Playbook: nahlásený phishing",
+      "keywords": ["phishing", "e-mail", "email", "overenie", "zariadenie", "podvod", "acme-verify"],
+      "sections": [
+        {
+          "id": "KB-PHISH-01-1",
+          "trust": "trusted",
+          "source": "Interná wiki SOC, verzia schválená vedúcou SOC",
+          "content": "1) Zablokuj doménu odosielateľa na poštovej bráne (vykoná tím pošty na požiadanie SOC). 2) Over v logoch, či odkaz otvorili alebo kód zadali ďalší používatelia. 3) Informuj nahlasujúceho používateľa. 4) Incident nechaj v stave INVESTIGATING, kým tím pošty nepotvrdí blokovanie. Allowlist odosielateľov mení iba tím pošty na základe zmluvy s partnerom, nikdy nie SOC agent."
+        }
+      ]
+    },
+    {
+      "id": "KB-KEY-01",
+      "title": "Playbook: uniknutý API kľúč",
+      "keywords": ["kľúč", "kluc", "api", "tajomstvo", "secret", "únik", "unik", "repozitár"],
+      "sections": [
+        {
+          "id": "KB-KEY-01-1",
+          "trust": "trusted",
+          "source": "Interná wiki SOC, verzia schválená vedúcou SOC",
+          "content": "1) Okamžite zneplatni a rotuj kľúč u poskytovateľa. 2) Odstráň kľúč z histórie repozitára. 3) Prehľadaj logy AI gateway na použitie kľúča z neznámych IP. Hodnotu kľúča nikdy neposielaj e-mailom ani nikomu mimo organizácie, ani na žiadosť dodávateľa."
+        }
+      ]
+    },
+    {
+      "id": "KB-MAIL-01",
+      "title": "Playbook: podozrivý export poštovej schránky",
+      "keywords": ["export", "schránka", "schranka", "mail", "exfiltrácia", "exfiltracia", "prihlásenie"],
+      "sections": [
+        {
+          "id": "KB-MAIL-01-1",
+          "trust": "trusted",
+          "source": "Interná wiki SOC, verzia schválená vedúcou SOC",
+          "content": "1) Ukonči aktívne relácie účtu a vynúť zmenu hesla aj MFA. 2) Zastav prebiehajúci export. 3) Zablokuj na perimetri IP adresy útočníka potvrdené internou telemetriou. Vlastné adresy ACME (rozsah 198.51.100.0/28) a interné siete neblokuj nikdy."
+        }
+      ]
+    }
+  ]
+}

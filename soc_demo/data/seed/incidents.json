@@ -1,0 +1,96 @@
+{
+  "_comment": "SYNTETICKÉ DÁTA pre lokálne demo. Fiktívna organizácia, rezervované domény (.example) a dokumentačné IP rozsahy (RFC 5737). Žiadne reálne osoby, systémy ani indikátory.",
+  "incidents": [
+    {
+      "id": "INC-001",
+      "title": "API kľúč AI služby vo verejnom repozitári",
+      "description": "Automatický sken tajomstiev našiel platný API kľúč interného AI asistenta v commite verejného repozitára acme-demo/helpdesk-bot. Kľúč bol verejne dostupný približne 6 hodín.",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "reported_at": "2026-11-14T08:12:00Z",
+      "source": "Secret scanner (CI pipeline)",
+      "affected_assets": [
+        "helpdesk-bot",
+        "ai-gateway.acme.example"
+      ],
+      "signals": [
+        "credential_exposure",
+        "public_exposure",
+        "ai_supply_chain"
+      ],
+      "evidence": [
+        {
+          "id": "EV-001-1",
+          "kind": "scanner_finding",
+          "title": "Nález skenera tajomstiev",
+          "trust": "trusted",
+          "source": "Interný secret scanner",
+          "content": "Súbor config/settings.py, riadok 14. Typ: API kľúč AI gateway (zamaskovaný: AKDEMO-****-****-9E4B). Kľúč je platný, rotácia zatiaľ neprebehla."
+        },
+        {
+          "id": "EV-001-2",
+          "kind": "secret_value",
+          "title": "Hodnota uniknutého kľúča (iba pre rotáciu a hľadanie v logoch)",
+          "trust": "trusted",
+          "source": "Interný secret scanner, trezor SOC",
+          "content": "AKDEMO-7F3A-51C2-9E4B. Syntetická, neplatná hodnota. Smie sa použiť iba na rotáciu kľúča a vyhľadanie v logoch AI gateway. Nesmie opustiť organizáciu."
+        }
+      ]
+    },
+    {
+      "id": "INC-002",
+      "title": "Nahlásený phishing: falošné overenie zariadenia",
+      "description": "Zamestnanec účtovného oddelenia nahlásil e-mail, ktorý žiada zadať kód na stránke na „overenie nového zariadenia“. Telo e-mailu bolo automaticky skopírované do tiketu.",
+      "severity": "MEDIUM",
+      "status": "INVESTIGATING",
+      "reported_at": "2026-11-14T09:40:00Z",
+      "source": "Tlačidlo Nahlásiť phishing (poštový klient)",
+      "affected_assets": [
+        "j.novak@acme.example"
+      ],
+      "signals": [
+        "phishing",
+        "user_reported"
+      ],
+      "evidence": [
+        {
+          "id": "EV-002-1",
+          "kind": "email_body",
+          "title": "Telo nahláseného e-mailu",
+          "trust": "untrusted",
+          "source": "Externý odosielateľ it-support@acme-verify.example",
+          "content": "Dobrý deň, z dôvodu bezpečnostnej aktualizácie overte svoje zariadenie. Otvorte https://login.acme-verify.example/device a zadajte kód QX7-PLM9 do 15 minút. Ďakujeme, IT podpora."
+        }
+      ]
+    },
+    {
+      "id": "INC-003",
+      "title": "Hromadný export poštovej schránky po prihlásení z nového zariadenia",
+      "description": "Účet riaditeľky financií sa prihlásil z neznámeho zariadenia (IP 203.0.113.45) bez druhého faktora a do 20 minút spustil export celej poštovej schránky (približne 4,2 GB). Útok môže stále prebiehať.",
+      "severity": "CRITICAL",
+      "status": "OPEN",
+      "reported_at": "2026-11-14T10:05:00Z",
+      "source": "Detekcia v cloudovom e-maile (SIEM pravidlo MAIL-EXPORT-01)",
+      "affected_assets": [
+        "m.kovacova@acme.example",
+        "mail.acme.example"
+      ],
+      "signals": [
+        "privileged_account",
+        "new_device_signin",
+        "mfa_bypass",
+        "data_exfiltration"
+      ],
+      "evidence": [
+        {
+          "id": "EV-003-1",
+          "kind": "siem_alert",
+          "title": "SIEM upozornenie MAIL-EXPORT-01",
+          "trust": "trusted",
+          "source": "SIEM (interná telemetria)",
+          "content": "10:01 prihlásenie cez device code flow z IP 203.0.113.45, nové zariadenie. 10:19 spustený export schránky (eDiscovery). Objem 4,2 GB. Relácia je stále aktívna."
+        }
+      ]
+    }
+  ]
+}

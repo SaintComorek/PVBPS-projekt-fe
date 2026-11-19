@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Pracovný stav dema a stiahnutý embedding model
+var/
+
+# Tajomstvá: API kľúč patrí iba do .env, ten sa nikdy necommituje (ani .env.example)
+.env
+.env.*
+
+# IDE a systém
+.idea/
+.vscode/
+.DS_Store

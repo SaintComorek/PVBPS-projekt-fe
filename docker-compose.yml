@@ -1,0 +1,28 @@
+# Spustenie celého dema: docker compose up --build, potom http://localhost:5711
+# Frontend je samostatné repozitárium. Predvolene sa hľadá vedľa backendu v priečinku ../frontend,
+# inú cestu nastavíte premennou FRONTEND_DIR (napr. FRONTEND_DIR=../soc-agent-lab-fe docker compose up --build).
+# API kľúč pre živý režim patrí do súboru .env vedľa tohto súboru (GROQ_API_KEY=...), bez neho beží Replay.
+services:
+  api:
+    build: .
+    ports:
+      - "${API_PORT:-8711}:8711"
+    env_file:
+      - path: settings.env
+        required: false
+      - path: .env
+        required: false
+    environment:
+      CORS_ORIGINS: '["http://localhost:${WEB_PORT:-5711}","http://127.0.0.1:${WEB_PORT:-5711}"]'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  web:
+    build: ${FRONTEND_DIR:-../frontend}
+    ports:
+      - "${WEB_PORT:-5711}:5711"
+    environment:
+      API_TARGET: http://api:8711
+    depends_on:
+      api:
+        condition: service_healthy

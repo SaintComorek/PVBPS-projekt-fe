@@ -1,0 +1,48 @@
+[project]
+name = "soc-agent-lab"
+version = "1.0.0"
+description = "SOC Agent Lab: prompt injection vs. deterministic policy gate (local synthetic demo)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "httpx>=0.27",
+    "langchain-core>=1.7.4,<2",
+    "langchain-openai>=1.7.3,<2",
+    "langchain-text-splitters>=1.1.3,<2",
+    "fastembed>=0.9.1,<0.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["soc_demo*"]
+
+[tool.setuptools.package-data]
+soc_demo = ["data/**/*.json", "data/**/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]

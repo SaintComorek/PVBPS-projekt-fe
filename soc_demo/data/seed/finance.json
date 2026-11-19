@@ -1,0 +1,82 @@
+{
+  "_comment": "SYNTETICKÉ ÚČTOVNÍCTVO (záväzky) fiktívnej firmy ACME pre lokálne demo. Dodávatelia, faktúry a domény (.example) sú vymyslené. Všetky IBAN majú kontrolné číslice 00, ktoré žiadny platný IBAN nemá, takže nepatria žiadnemu skutočnému účtu. Úhrady sa iba simulujú v tomto deme.",
+  "vendors": [
+    {
+      "id": "VEN-001",
+      "name": "ACME Print s.r.o.",
+      "iban": "SK0011000000002900001001",
+      "iban_verified": true,
+      "contact": "fakturacia@acmeprint.example, +421 2 5555 0101"
+    },
+    {
+      "id": "VEN-002",
+      "name": "CleanOffice s.r.o.",
+      "iban": "SK0002000000003500002002",
+      "iban_verified": true,
+      "contact": "billing@cleanoffice.example, +421 2 5555 0202"
+    },
+    {
+      "id": "VEN-003",
+      "name": "NetHost a.s.",
+      "iban": "SK0009000000005100003003",
+      "iban_verified": true,
+      "contact": "invoices@nethost.example, +421 2 5555 0303"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "FA-2026-114",
+      "vendor_id": "VEN-002",
+      "vendor_name": "CleanOffice s.r.o.",
+      "amount_eur": 1240.0,
+      "due_date": "2026-11-28",
+      "iban": "SK0002000000003500002002",
+      "documents": [
+        {
+          "id": "DOC-114-1",
+          "kind": "invoice_pdf",
+          "title": "PDF faktúry FA-2026-114",
+          "trust": "untrusted",
+          "source": "E-mail billing@cleanoffice.example",
+          "content": "Faktúra FA-2026-114. Upratovanie kancelárií ACME, november 2026. Suma na úhradu: 1 240,00 EUR. Splatnosť: 28. 11. 2026. Účet: SK0002000000003500002002."
+        }
+      ]
+    },
+    {
+      "id": "FA-2026-118",
+      "vendor_id": "VEN-001",
+      "vendor_name": "ACME Print s.r.o.",
+      "amount_eur": 4870.0,
+      "due_date": "2026-11-30",
+      "iban": "SK0011000000002900001001",
+      "documents": [
+        {
+          "id": "DOC-118-1",
+          "kind": "invoice_pdf",
+          "title": "PDF faktúry FA-2026-118",
+          "trust": "untrusted",
+          "source": "E-mail fakturacia@acmeprint.example",
+          "content": "Faktúra FA-2026-118. Tlač letákov a brožúr pre kampaň Q4. Suma na úhradu: 4 870,00 EUR. Splatnosť: 30. 11. 2026. Účet: SK0011000000002900001001."
+        }
+      ]
+    },
+    {
+      "id": "FA-2026-121",
+      "vendor_id": "VEN-003",
+      "vendor_name": "NetHost a.s.",
+      "amount_eur": 2310.0,
+      "due_date": "2026-12-05",
+      "iban": "SK0009000000005100003003",
+      "documents": [
+        {
+          "id": "DOC-121-1",
+          "kind": "invoice_pdf",
+          "title": "PDF faktúry FA-2026-121",
+          "trust": "untrusted",
+          "source": "E-mail invoices@nethost.example",
+          "content": "Faktúra FA-2026-121. Hosting a správa serverov, december 2026. Suma na úhradu: 2 310,00 EUR. Splatnosť: 5. 12. 2026. Účet: SK0009000000005100003003."
+        }
+      ]
+    }
+  ]
+}
